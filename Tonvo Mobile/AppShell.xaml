@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="Tonvo_Mobile.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:view="clr-namespace:Tonvo_Mobile.MVVM.Views"
+    xmlns:local="clr-namespace:Tonvo_Mobile"
+    Shell.FlyoutBehavior="Disabled">
+
+    <TabBar>
+        <ShellContent Title="Home"
+                      ContentTemplate="{DataTemplate view:RootView}" 
+                      Route="Root" />
+        <ShellContent Title="Home"
+                      ContentTemplate="{DataTemplate view:UserInfoView}" 
+                      Route="UserInfo" />
+    </TabBar>
+
+</Shell>
