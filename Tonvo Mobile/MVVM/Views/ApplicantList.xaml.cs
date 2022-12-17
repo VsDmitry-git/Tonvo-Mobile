@@ -1,16 +1,14 @@
-using Tonvo_Mobile.MVVM.ViewModels;
-
 namespace Tonvo_Mobile.MVVM.Views;
 
-public partial class RootView : ContentPage
+public partial class ApplicantList : ContentPage
 {
-    private RootViewModel vm;
-    public RootView(RootViewModel vm)
+    private ApplicantViewModel vm;
+	public ApplicantList(ApplicantViewModel vm)
 	{
         this.vm = vm;
         BindingContext = vm;
-		InitializeComponent();
-    }
+        InitializeComponent();
+	}
     protected override async void OnAppearing()
     {
         base.OnAppearing();

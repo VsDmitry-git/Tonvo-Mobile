@@ -1,4 +1,6 @@
-﻿namespace Tonvo_Mobile;
+﻿using Tonvo.Services;
+
+namespace Tonvo_Mobile;
 
 public partial class App : Application
 {

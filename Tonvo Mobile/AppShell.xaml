@@ -7,13 +7,55 @@
     xmlns:local="clr-namespace:Tonvo_Mobile"
     Shell.FlyoutBehavior="Disabled">
 
+    
+    
     <TabBar>
-        <ShellContent Title="Home"
-                      ContentTemplate="{DataTemplate view:RootView}" 
-                      Route="Root" />
-        <ShellContent Title="Home"
-                      ContentTemplate="{DataTemplate view:UserInfoView}" 
-                      Route="UserInfo" />
+        <TabBar.Style>
+            <Style TargetType="Tab">
+                <Setter Property="Shell.TabBarBackgroundColor"
+                        Value="{StaticResource Primary}" />
+                <Setter Property="Shell.TabBarTitleColor"
+                        Value="{StaticResource Font}" />
+                <Setter Property="Shell.TabBarUnselectedColor"
+                        Value="{StaticResource Gray600}" />
+                <Setter Property="Shell.TabBarDisabledColor"
+                        Value="{StaticResource Gray300}" />
+            </Style>
+        </TabBar.Style>
+        <Tab Title="Вакансии">
+            <ShellContent ContentTemplate="{DataTemplate view:RootView}"
+                          Route="RootView"
+                          Icon="dotnet_bot.png"/>
+        </Tab>
+        <Tab Title="Резюме">
+            <ShellContent ContentTemplate="{DataTemplate view:ApplicantList}"
+                          Route="ApplicantList"
+                          Icon="resume.png"/>
+        </Tab>
+        <Tab Title="Личный кабинет">
+            <ShellContent ContentTemplate="{DataTemplate view:AccountView}"
+                          Route="AccountView"
+                          Icon="login.png"/>
+        </Tab>
     </TabBar>
 
+    <ShellContent Title="Детали вакансии"
+                  ContentTemplate="{DataTemplate view:UserInfoView}"
+                  Route="UserInfoView" />
+    <ShellContent Title="Детали резюме"
+                  ContentTemplate="{DataTemplate view:ApplicantInfoView}"
+                  Route="ApplicantInfoView" />
+
+    <!--<Shell.ItemTemplate>
+        <DataTemplate>
+            <Grid WidthRequest="44" HeightRequest="68"
+                          ColumnDefinitions="44" RowDefinitions="68">
+                <Image Source="{Binding FlyoutIcon}"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center"                               
+                               HeightRequest="38"
+                               WidthRequest="38"/>
+            </Grid>
+        </DataTemplate>
+    </Shell.ItemTemplate>-->
 </Shell>

@@ -1,5 +1,5 @@
 ﻿using System.Collections.ObjectModel;
-using Tonvo.MVVM.Models;
+using Tonvo_Mobile.MVVM.Modelss;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Diagnostics;
@@ -14,19 +14,38 @@ namespace Tonvo_Mobile.MVVM.ViewModels
         [ObservableProperty]
         private Vacancy selectedVacancy;
 
+        [ObservableProperty]
+        private ObservableCollection<Vacancy> vacancies;
+
+
+        private int mode;
+        public async Task Init()
+        {
+            try
+            {
+                await ReadVacancy();
+                GlobalViewModel.mode = 0;
+            }
+            catch (Exception)
+            {
+                // TODO: logging
+                Debug.WriteLine("Unable to retrieve list");
+            }
+        }
 
         async partial void OnSelectedVacancyChanged(Vacancy value)
         {
-            // TODO: Изменить путь к view
-            //await Shell.Current.GoToAsync($"UserInfo", true);
+            var navigationParameter = new Dictionary<string, object>
+            {
+                {"SelectedVacancy", SelectedVacancy},
+                { "Mode", mode }
+            };
+            await Shell.Current.GoToAsync("UserInfoView", navigationParameter);
             Debug.WriteLine(value.VacancyName.ToString());
         }
 
-        const int RefreshDuration = 3;
+        const int RefreshDuration = 1;
         bool _isRefreshing;
-
-
-        public ObservableCollection<Vacancy> Vacancies { get; private set; } = new ObservableCollection<Vacancy>();
 
         public ICommand RefreshCommand => new Command(async () => await RefreshDataAsync());
 
@@ -42,33 +61,21 @@ namespace Tonvo_Mobile.MVVM.ViewModels
 
         public RootViewModel()
         {
-            AddVacancy();
         }
-        void AddVacancy()
+        async Task ReadVacancy()
         {
-            Vacancies.Add(new Vacancy
-            {
-                VacancyName = "Vacancy",
-                VacancySalary = "Salary",
-                CompanyName = "Company"
-            });
-            Vacancies.Add(new Vacancy
-            {
-                VacancyName = "Vacancy2",
-                VacancySalary = "Salary2",
-                CompanyName = "Company2"
-            });
+            Vacancies = new ObservableCollection<Vacancy>();
+            Vacancies.Add(new Vacancy{ VacancyName = "Test1", CompanyName="Test2", Password="gvjbj", VacancySalary="Test3"});
+            Vacancies.Add(new Vacancy{ VacancyName = "Test1", CompanyName = "Test2", Password = "gvjbj", VacancySalary = "Test3"});
         }
 
         async Task RefreshDataAsync()
         {
             IsRefreshing = true;
             await Task.Delay(TimeSpan.FromSeconds(RefreshDuration));
-            // TODO: Добавить метод заполнения списка
-            AddVacancy();
+            Vacancies.Clear();
+            await ReadVacancy();
             IsRefreshing = false;
         }
-
-
     }
 }

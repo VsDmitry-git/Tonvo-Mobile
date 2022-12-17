@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Tonvo_Mobile.MVVM.Views.UserInfoView"
+             x:Class="Tonvo_Mobile.MVVM.Views.ApplicantInfoView"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:vm="clr-namespace:Tonvo_Mobile.MVVM.ViewModels"
              Background="{StaticResource Background}"
-             Title="{Binding CompanyName}">
+             Title="{Binding FullName}">
+
     <VerticalStackLayout>
         <ScrollView>
             <Grid
@@ -18,43 +19,43 @@
                     FontSize="Large"
                     TextColor="{StaticResource Font}"
                     Margin="0,0,0,15"
-                    Text="{Binding SelectedVacancy.VacancyName, Mode=TwoWay, TargetNullValue=nullValue}"/>
+                    Text="{Binding SelectedApplicant.ProfessionName, Mode=TwoWay, TargetNullValue=nullValue}"/>
                 <Label Grid.Row="1"
                     FontSize="Caption"
                     FontAttributes="Bold"
                     HorizontalOptions="End"
                     TextColor="{StaticResource Font}"
-                    Text="Уровень дохода:"/>
+                    Text="Желаемый доход:"/>
                 <Label Grid.Column="1"
                     Grid.Row="1"
                     FontSize="Caption"
                     TextColor="{StaticResource Font}"
                     Margin="10,0,10,0"
-                    Text="{Binding SelectedVacancy.VacancySalary, Mode=TwoWay, TargetNullValue=nullValue}"/>
+                    Text="{Binding SelectedApplicant.ApplicantSalary, Mode=TwoWay, TargetNullValue=nullValue}"/>
                 <Label Grid.Row="2"
                     FontSize="Caption"
                     FontAttributes="Bold"
                     HorizontalOptions="End"
                     TextColor="{StaticResource Font}"
-                    Text="Опыт работы от:"/>
+                    Text="Опыт работы:"/>
                 <Label Grid.Column="1"
                     Grid.Row="2"
                     FontSize="Caption"
                     TextColor="{StaticResource Font}"
                     Margin="10,0,10,0"
-                    Text="{Binding VacancySalary.RequiredExperience, Mode=TwoWay, TargetNullValue=nullValue}"/>
+                    Text="{Binding SelectedApplicant.WorkExperience, Mode=TwoWay, TargetNullValue=nullValue}"/>
                 <Label Grid.Row="3"
                     FontSize="Caption"
                     FontAttributes="Bold"
                     HorizontalOptions="End"
                     TextColor="{StaticResource Font}"
-                    Text="Место работы:"/>
+                    Text="Дата рождения:"/>
                 <Label Grid.Column="1"
                     Grid.Row="3"
                     FontSize="Caption"
                     TextColor="{StaticResource Font}"
                     Margin="10,0,10,0"
-                    Text="{Binding VacancySalary.AddressCompany, Mode=TwoWay, TargetNullValue=nullValue}"/>
+                    Text="{Binding SelectedApplicant.Birthday, Mode=TwoWay, TargetNullValue=nullValue}"/>
                 <Label Grid.Row="4"
                     FontSize="Caption"
                     FontAttributes="Bold"
@@ -66,7 +67,7 @@
                     FontSize="Caption"
                     TextColor="{StaticResource Font}"
                     Margin="10,0,10,0"
-                    Text="{Binding VacancySalary.Email, Mode=TwoWay, TargetNullValue=nullValue}"/>
+                    Text="{Binding SelectedApplicant.Email, Mode=TwoWay, TargetNullValue=nullValue}"/>
                 <Label Grid.Row="5"
                     FontSize="Caption"
                     FontAttributes="Bold"
@@ -78,7 +79,7 @@
                     TextColor="{StaticResource Font}"
                     Margin="10,0,10,0"
                     LineBreakMode="WordWrap"
-                    Text="{Binding VacancySalary.VacancyDescription, Mode=TwoWay, TargetNullValue=nullValue}"/>
+                    Text="{Binding SelectedApplicant.ApplicantDescription, Mode=TwoWay, TargetNullValue=nullValue}"/>
             </Grid>
         </ScrollView>
         <Button Text="Откликнуться" 

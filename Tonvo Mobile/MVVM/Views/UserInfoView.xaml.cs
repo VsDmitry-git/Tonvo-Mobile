@@ -1,12 +1,12 @@
-using Tonvo_Mobile.MVVM.ViewModels;
-
 namespace Tonvo_Mobile.MVVM.Views;
 
 public partial class UserInfoView : ContentPage
 {
-	public UserInfoView()
+	private UserInfoViewModel vm;
+	public UserInfoView(UserInfoViewModel vm)
 	{
+		this.vm = vm;
+		BindingContext= vm;
 		InitializeComponent();
-		BindingContext = new UserInfoViewModel();
 	}
 }

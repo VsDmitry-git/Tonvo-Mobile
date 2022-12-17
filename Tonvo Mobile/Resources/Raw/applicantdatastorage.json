@@ -1,0 +1,25 @@
+[
+  {
+    "Id": 0,
+    "ProfessionName": "Developer",
+    "ApplicantSalary": "10000",
+    "WorkExperience": "2",
+    "Name": "Ivan",
+    "SecondName": "Ivanov",
+    "FullName": null,
+    "ApplicantDescription": "h",
+    "Birthday": "03.03.2003",
+    "Email": "Ivan@mail.com",
+    "Password": "JHG78^&h",
+    "Responds": [],
+    "ValidateApplicantProfessionName": {},
+    "ValidateApplicantSalary": {},
+    "ValidateApplicantWorkExperience": {},
+    "ValidateApplicantName": {},
+    "ValidateApplicantSecondName": {},
+    "ValidateApplicantBirthday": {},
+    "ValidateApplicantEmail": {},
+    "ValidateApplicantPassword": {},
+    "HasErrors": false
+  }
+]

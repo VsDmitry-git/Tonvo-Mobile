@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage 
-    x:Class="Tonvo_Mobile.MVVM.Views.RootView"
-    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-    Background="{StaticResource Background}"
-    Title="Вакансии">
-
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Tonvo_Mobile.MVVM.Views.ApplicantList"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             Background="{StaticResource Background}"
+             Title="Резюме">
     <ContentPage.Resources>
         <Style TargetType="Grid">
             <Setter Property="VisualStateManager.VisualStateGroups">
@@ -20,7 +18,7 @@
                             </VisualState.Setters>
                         </VisualState>
                     </VisualStateGroup>
-                </VisualStateGroupList> 
+                </VisualStateGroupList>
             </Setter>
         </Style>
     </ContentPage.Resources>
@@ -28,9 +26,9 @@
         <RefreshView RefreshColor="{StaticResource Primary}" 
                      IsRefreshing="{Binding IsRefreshing}"
                      Command="{Binding RefreshCommand}">
-            <CollectionView ItemsSource="{Binding Vacancies}"
+            <CollectionView ItemsSource="{Binding Applicants}"
                             SelectionMode="Single"
-                            SelectedItem="{Binding SelectedVacancy}">
+                            SelectedItem="{Binding SelectedApplicant}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Grid Padding="10">
@@ -40,13 +38,13 @@
                                 <RowDefinition Height="auto"/>
                             </Grid.RowDefinitions>
 
-                            <Label Text="{Binding VacancyName}"
+                            <Label Text="{Binding ProfessionName}"
                                    TextColor="{StaticResource Font}"/>
                             <Label Grid.Row="1"
-                                   Text="{Binding VacancySalary}"
+                                   Text="{Binding ApplicantSalary}"
                                    TextColor="{StaticResource Font}"/>
                             <Label Grid.Row="2"
-                                   Text="{Binding CompanyName}"
+                                   Text="{Binding WorkExperience}"
                                    TextColor="{StaticResource Font}"
                                    VerticalOptions="End"/>
                         </Grid>
@@ -54,6 +52,5 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </RefreshView>
-        <!--<Button Grid.Row="1" Command="{Binding btnAdd, Source=viewModel:RootViewModel}" Text="Add"></Button>-->
     </Grid>
 </ContentPage>
