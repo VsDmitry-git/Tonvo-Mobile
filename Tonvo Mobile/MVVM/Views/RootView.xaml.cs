@@ -4,17 +4,17 @@ namespace Tonvo_Mobile.MVVM.Views;
 
 public partial class RootView : ContentPage
 {
-    private RootViewModel vm;
+    private readonly RootViewModel vm;
     public RootView(RootViewModel vm)
 	{
         this.vm = vm;
         BindingContext = vm;
 		InitializeComponent();
     }
-    protected override async void OnAppearing()
+    protected override void OnAppearing()
     {
         base.OnAppearing();
 
-        await vm.Init();
+        vm.Init();
     }
 }

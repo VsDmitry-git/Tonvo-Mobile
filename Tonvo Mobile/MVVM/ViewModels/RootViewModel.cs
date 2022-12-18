@@ -17,13 +17,11 @@ namespace Tonvo_Mobile.MVVM.ViewModels
         [ObservableProperty]
         private ObservableCollection<Vacancy> vacancies;
 
-
-        private int mode;
-        public async Task Init()
+        public void Init()
         {
             try
             {
-                await ReadVacancy();
+                ReadVacancy();
                 GlobalViewModel.mode = 0;
             }
             catch (Exception)
@@ -37,8 +35,7 @@ namespace Tonvo_Mobile.MVVM.ViewModels
         {
             var navigationParameter = new Dictionary<string, object>
             {
-                {"SelectedVacancy", SelectedVacancy},
-                { "Mode", mode }
+                {"SelectedVacancy", SelectedVacancy}
             };
             await Shell.Current.GoToAsync("UserInfoView", navigationParameter);
             Debug.WriteLine(value.VacancyName.ToString());
@@ -62,7 +59,7 @@ namespace Tonvo_Mobile.MVVM.ViewModels
         public RootViewModel()
         {
         }
-        async Task ReadVacancy()
+        void ReadVacancy()
         {
             Vacancies = GlobalViewModel.Vacancies;
         }
@@ -72,7 +69,7 @@ namespace Tonvo_Mobile.MVVM.ViewModels
             IsRefreshing = true;
             await Task.Delay(TimeSpan.FromSeconds(RefreshDuration));
             Vacancies.Clear();
-            await ReadVacancy();
+            ReadVacancy();
             IsRefreshing = false;
         }
     }

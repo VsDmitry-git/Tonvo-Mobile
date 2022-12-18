@@ -22,7 +22,7 @@ namespace Tonvo_Mobile.MVVM.ViewModels
         [ObservableProperty]
         private string email;
 
-        public ICommand Respond => new Command(async () => await RespondAsync());
+        public ICommand Respond => new Command(() => RespondAsync());
 
         private Vacancy selectedVacancy;
         public Vacancy SelectedVacancy
@@ -46,7 +46,7 @@ namespace Tonvo_Mobile.MVVM.ViewModels
             
         }
 
-        async Task RespondAsync()
+        void RespondAsync()
         {
             //foreach (var item in SelectedVacancy.Responds)
             //{

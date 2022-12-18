@@ -32,7 +32,7 @@ namespace Tonvo_Mobile.MVVM.ViewModels
 
         public string TestText { get; set; } = "Test";
 
-        public ICommand Respond => new Command(async () => await RespondAsync());
+        public ICommand Respond => new Command(() => RespondAsync());
 
         private Applicant selectedApplicant;
         public Applicant SelectedApplicant
@@ -45,14 +45,14 @@ namespace Tonvo_Mobile.MVVM.ViewModels
                 applicantSalary = value.ApplicantSalary;
                 workExperience = value.WorkExperience;
                 fullName = $"{value.SecondName} {value.Name}";
-                birthday = value.Age;
+                birthday = value.Birthday;
                 email = value.Email;
                 responds= value.Responds;
                 applicantDescription= value.ApplicantDescription;
             }
         }
 
-        async Task RespondAsync()
+        void RespondAsync()
         {
             //foreach (var item in SelectedVacancy.Responds)
             //{

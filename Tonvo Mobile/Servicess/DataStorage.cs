@@ -42,19 +42,19 @@ namespace Tonvo.Services
         {
             _currentPath = _pathToSaveApplicant;
             Applicants.Insert(0, acc);
-            SaveDataList(Applicants);
+            SaveApplicantList(Applicants);
         }
         public static void AddVacancy(Vacancy acc)
         {
             _currentPath = _pathToSaveVacancy;
             Vacancies.Insert(0, acc);
-            SaveDataList(Vacancies);
+            SaveVacancyList(Vacancies);
         }
         public static void AddCompany(Company acc)
         {
             _currentPath = _pathToSaveCompany;
             Companies.Insert(0, acc);
-            SaveDataList(Companies);
+            SaveCompanyList(Companies);
         }
 
         // Remove Command
@@ -66,7 +66,7 @@ namespace Tonvo.Services
         // Read JSON
         private static ObservableCollection<Applicant> ReadApplicantsJson()
         {
-            _currentPath = _pathToSaveVacancy;
+            _currentPath = _pathToSaveApplicant;
             if (!File.Exists(_currentPath))
             {
                 ObservableCollection<Applicant> applicants = new ();
@@ -111,7 +111,9 @@ namespace Tonvo.Services
         }
 
         // Save
-        public static void SaveDataList<T>(T accs) => File.WriteAllText(_currentPath, JsonConvert.SerializeObject(accs));
+        public static void SaveApplicantList(ObservableCollection<Applicant> accs) => File.WriteAllText(_currentPath, JsonConvert.SerializeObject(accs));
+        public static void SaveVacancyList(ObservableCollection<Vacancy> accs) => File.WriteAllText(_currentPath, JsonConvert.SerializeObject(accs));
+        public static void SaveCompanyList(ObservableCollection<Company> accs) => File.WriteAllText(_currentPath, JsonConvert.SerializeObject(accs));
 
         // Get List
         public static ObservableCollection<Applicant> GetApplicants() => Applicants;
@@ -128,7 +130,7 @@ namespace Tonvo.Services
                 {
                     int i = Applicants.IndexOf(item);
                     Applicants[i] = replace;
-                    SaveDataList(Applicants);
+                    SaveApplicantList(Applicants);
                     return;
                 }
             }
@@ -142,7 +144,7 @@ namespace Tonvo.Services
                 {
                     int i = Vacancies.IndexOf(item);
                     Vacancies[i] = replace;
-                    SaveDataList(Vacancies);
+                    SaveVacancyList(Vacancies);
                     return;
                 }
             }
@@ -157,7 +159,7 @@ namespace Tonvo.Services
                 {
                     int i = Companies.IndexOf(item);
                     Companies[i] = replace;
-                    SaveDataList(Companies);
+                    SaveCompanyList(Companies);
                     return;
                 }
             }

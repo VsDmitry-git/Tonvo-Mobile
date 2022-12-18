@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
+using Tonvo.Services;
 using Tonvo_Mobile.MVVM.Modelss;
 
 namespace Tonvo_Mobile.MVVM.ViewModels
@@ -7,21 +8,45 @@ namespace Tonvo_Mobile.MVVM.ViewModels
     [ObservableObject]
     public partial class CreateApplicantViewModel
     {
-        [ObservableProperty] private string professionName;
-        [ObservableProperty] private string applicantSalary;
-        [ObservableProperty] private string workExperience;
-        [ObservableProperty] private string name;
-        [ObservableProperty] private string secondName;
-        [ObservableProperty] private string age;  
-        [ObservableProperty] private string email;
-        [ObservableProperty] private string password;
+        [ObservableProperty]
+        private DateTime dateStart = DateTime.Now.AddYears(-100);
+        [ObservableProperty]
+        private DateTime dateEnd = DateTime.Now.AddYears(-14);
+
+        [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(SignUpCommand))]
+        private string professionName;
+        [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(SignUpCommand))]
+        private string applicantSalary;
+        [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(SignUpCommand))] 
+        private string workExperience;
+        [ObservableProperty] 
+        [NotifyCanExecuteChangedFor(nameof(SignUpCommand))] 
+        private string name;
+        [ObservableProperty] 
+        [NotifyCanExecuteChangedFor(nameof(SignUpCommand))] 
+        private string secondName;
+        [ObservableProperty] 
+        [NotifyCanExecuteChangedFor(nameof(SignUpCommand))] 
+        private string birthday;  
+        [ObservableProperty] 
+        [NotifyCanExecuteChangedFor(nameof(SignUpCommand))] 
+        private string email;
+        [ObservableProperty] 
+        [NotifyCanExecuteChangedFor(nameof(SignUpCommand))] 
+        private string password;
+        [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(SignUpCommand))]
+        private string applicantDescription;
 
         [ObservableProperty] private string professionNameErrorMessage;
         [ObservableProperty] private string applicantSalaryErrorMessage;
         [ObservableProperty] private string workExperienceErrorMessage;
         [ObservableProperty] private string nameErrorMessage;
         [ObservableProperty] private string secondNameErrorMessage;
-        [ObservableProperty] private string ageErrorMessage;
+        [ObservableProperty] private string birthdayErrorMessage;
         [ObservableProperty] private string emailErrorMessage;
         [ObservableProperty] private string passwordErrorMessage;
 
@@ -30,7 +55,7 @@ namespace Tonvo_Mobile.MVVM.ViewModels
         [ObservableProperty] private bool showWorkExperienceErrorMessage;
         [ObservableProperty] private bool showNameErrorMessage;
         [ObservableProperty] private bool showSecondNameErrorMessage;
-        [ObservableProperty] private bool showAgeErrorMessage;
+        [ObservableProperty] private bool showBirthdayErrorMessage;
         [ObservableProperty] private bool showEmailErrorMessage;
         [ObservableProperty] private bool showPasswordErrorMessage;
 
@@ -41,7 +66,7 @@ namespace Tonvo_Mobile.MVVM.ViewModels
         [ObservableProperty] private bool isValidWorkExperience;
         [ObservableProperty] private bool isValidName;
         [ObservableProperty] private bool isValidSecondName;
-        [ObservableProperty] private bool isValidAge;
+        [ObservableProperty] private bool isValidBirthday = true;
         [ObservableProperty] private bool isValidEmail;
         [ObservableProperty] private bool isValidPassword;
 
@@ -54,18 +79,29 @@ namespace Tonvo_Mobile.MVVM.ViewModels
 
 
         [RelayCommand]
-        async Task SignUp()
+        public async Task SignUp()
         {
             if (EnableButton)
             {
                 try
                 {
-                    //await accountService.CreateAccount(accountCreateRequest);
-                    await Application.Current.MainPage.DisplayAlert("Регистрация завершена",
-                        "Ваше резюме успешно создано", "Ok");
+                    DataStorage.AddApplicant(new Applicant 
+                    { 
+                        ProfessionName=ProfessionName,
+                        ApplicantSalary=ApplicantSalary,
+                        WorkExperience=WorkExperience,
+                        Name=Name,
+                        SecondName=SecondName,
+                        Birthday = Birthday.Remove(Birthday.IndexOf(' ')),
+                        Email=Email,
+                        Password=Password,
+                        ApplicantDescription=ApplicantDescription
+                    });
+                    
+                    await Application.Current.MainPage.DisplayAlert("Регистрация завершена", "Ваше резюме успешно создано", "Ok");
                     await Shell.Current.GoToAsync("..");
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     await Application.Current.MainPage.DisplayAlert("Регистрация провалена",
                         "Не удалось создать резюме", "Ok");
@@ -85,7 +121,7 @@ namespace Tonvo_Mobile.MVVM.ViewModels
                     IsValidProfessionName = true;
                     ShowProfessionNameErrorMessage = false;
                     EnableButton = IsValidProfessionName && IsValidApplicantSalary && IsValidWorkExperience &&
-                       IsValidName && IsValidSecondName && isValidAge && IsValidEmail && IsValidPassword;
+                       IsValidName && IsValidSecondName && isValidBirthday && IsValidEmail && IsValidPassword;
                 }
                 else
                 {
@@ -93,7 +129,7 @@ namespace Tonvo_Mobile.MVVM.ViewModels
                     IsValidProfessionName = false;
                     ShowProfessionNameErrorMessage = true;
                     EnableButton = IsValidProfessionName && IsValidApplicantSalary && IsValidWorkExperience &&
-                      IsValidName && IsValidSecondName && isValidAge && IsValidEmail && IsValidPassword;
+                      IsValidName && IsValidSecondName && isValidBirthday && IsValidEmail && IsValidPassword;
                 }
             }
             else
@@ -102,7 +138,7 @@ namespace Tonvo_Mobile.MVVM.ViewModels
                 IsValidProfessionName = false;
                 ShowProfessionNameErrorMessage = true;
                 EnableButton = IsValidProfessionName && IsValidApplicantSalary && IsValidWorkExperience &&
-                  IsValidName && IsValidSecondName && isValidAge && IsValidEmail && IsValidPassword;
+                  IsValidName && IsValidSecondName && isValidBirthday && IsValidEmail && IsValidPassword;
             }
 
             return Task.CompletedTask;
@@ -116,7 +152,7 @@ namespace Tonvo_Mobile.MVVM.ViewModels
                 IsValidApplicantSalary = true;
                 ShowApplicantSalaryErrorMessage = false;
                 EnableButton = IsValidProfessionName && IsValidApplicantSalary && IsValidWorkExperience &&
-                   IsValidName && IsValidSecondName && isValidAge && IsValidEmail && IsValidPassword;
+                   IsValidName && IsValidSecondName && isValidBirthday && IsValidEmail && IsValidPassword;
             }
             else
             {
@@ -124,7 +160,7 @@ namespace Tonvo_Mobile.MVVM.ViewModels
                 IsValidApplicantSalary = false;
                 ShowApplicantSalaryErrorMessage = true;
                 EnableButton = IsValidProfessionName && IsValidApplicantSalary && IsValidWorkExperience &&
-                  IsValidName && IsValidSecondName && isValidAge && IsValidEmail && IsValidPassword;
+                  IsValidName && IsValidSecondName && isValidBirthday && IsValidEmail && IsValidPassword;
             }
 
             return Task.CompletedTask;
@@ -133,13 +169,24 @@ namespace Tonvo_Mobile.MVVM.ViewModels
         [RelayCommand]
         public Task ValidateWorkExperience()
         {
-            if (!string.IsNullOrEmpty(WorkExperience) && int.TryParse(WorkExperience, out _) && int.Parse(WorkExperience) <= 80 &&
-                int.Parse(WorkExperience) >= 0 && !WorkExperience.All(f => (f == '0')))
+            if (!string.IsNullOrEmpty(WorkExperience) && (int.TryParse(WorkExperience, out _) || WorkExperience=="0") && int.Parse(WorkExperience) <= 80 &&
+                int.Parse(WorkExperience) >= 0)
             {
-                IsValidWorkExperience = true;
-                ShowWorkExperienceErrorMessage = false;
-                EnableButton = IsValidProfessionName && IsValidApplicantSalary && IsValidWorkExperience &&
-                   IsValidName && IsValidSecondName && isValidAge && IsValidEmail && IsValidPassword;
+                if (WorkExperience.Length > 1 && WorkExperience.All(f => (f == '0')))
+                {
+                    WorkExperienceErrorMessage = "*Пожалуйста, введите опыт работы, состоящий только из цифр от 0 (без опыта) до 80 лет";
+                    IsValidWorkExperience = false;
+                    ShowWorkExperienceErrorMessage = true;
+                    EnableButton = IsValidProfessionName && IsValidApplicantSalary && IsValidWorkExperience &&
+                      IsValidName && IsValidSecondName && isValidBirthday && IsValidEmail && IsValidPassword;
+                }
+                else
+                {
+                    IsValidWorkExperience = true;
+                    ShowWorkExperienceErrorMessage = false;
+                    EnableButton = IsValidProfessionName && IsValidApplicantSalary && IsValidWorkExperience &&
+                    IsValidName && IsValidSecondName && isValidBirthday && IsValidEmail && IsValidPassword;
+                }
             }
             else
             {
@@ -147,7 +194,7 @@ namespace Tonvo_Mobile.MVVM.ViewModels
                 IsValidWorkExperience = false;
                 ShowWorkExperienceErrorMessage = true;
                 EnableButton = IsValidProfessionName && IsValidApplicantSalary && IsValidWorkExperience &&
-                  IsValidName && IsValidSecondName && isValidAge && IsValidEmail && IsValidPassword;
+                  IsValidName && IsValidSecondName && isValidBirthday && IsValidEmail && IsValidPassword;
             }
 
             return Task.CompletedTask;
@@ -161,7 +208,7 @@ namespace Tonvo_Mobile.MVVM.ViewModels
                 IsValidName = true;
                 ShowNameErrorMessage = false;
                 EnableButton = IsValidProfessionName && IsValidApplicantSalary && IsValidWorkExperience &&
-                  IsValidName && IsValidSecondName && isValidAge && IsValidEmail && IsValidPassword;
+                  IsValidName && IsValidSecondName && isValidBirthday && IsValidEmail && IsValidPassword;
             }
             else
             {
@@ -169,7 +216,7 @@ namespace Tonvo_Mobile.MVVM.ViewModels
                 IsValidName = false;
                 ShowNameErrorMessage = true;
                 EnableButton = IsValidProfessionName && IsValidApplicantSalary && IsValidWorkExperience &&
-                  IsValidName && IsValidSecondName && isValidAge && IsValidEmail && IsValidPassword;
+                  IsValidName && IsValidSecondName && isValidBirthday && IsValidEmail && IsValidPassword;
             }
 
             return Task.CompletedTask;
@@ -183,7 +230,7 @@ namespace Tonvo_Mobile.MVVM.ViewModels
                 IsValidSecondName = true;
                 ShowSecondNameErrorMessage = false;
                 EnableButton = IsValidProfessionName && IsValidApplicantSalary && IsValidWorkExperience &&
-                   IsValidName && IsValidSecondName && isValidAge && IsValidEmail && IsValidPassword;
+                   IsValidName && IsValidSecondName && isValidBirthday && IsValidEmail && IsValidPassword;
             }
             else
             {
@@ -191,35 +238,13 @@ namespace Tonvo_Mobile.MVVM.ViewModels
                 IsValidSecondName = false;
                 ShowSecondNameErrorMessage = true;
                 EnableButton = IsValidProfessionName && IsValidApplicantSalary && IsValidWorkExperience &&
-                  IsValidName && IsValidSecondName && isValidAge && IsValidEmail && IsValidPassword;
+                  IsValidName && IsValidSecondName && isValidBirthday && IsValidEmail && IsValidPassword;
             }
 
             return Task.CompletedTask;
         }
 
-        [RelayCommand]
-        public Task ValidateAge()
-        {
-            if (!string.IsNullOrEmpty(Age) && int.TryParse(Age, out _) && int.Parse(Age) >= 14 && int.Parse(Age) <= 100)
-            {
-                IsValidAge = true;
-                ShowAgeErrorMessage = false;
-                EnableButton = IsValidProfessionName && IsValidApplicantSalary && IsValidWorkExperience &&
-                   IsValidName && IsValidSecondName && isValidAge && IsValidEmail && IsValidPassword;
-            }
-            else
-            {
-                AgeErrorMessage = "*Пожалуйста, введите свой возраст, зарегистрироваться можно с 14 лет";
-                IsValidAge = false;
-                ShowAgeErrorMessage = true;
-                EnableButton = IsValidProfessionName && IsValidApplicantSalary && IsValidWorkExperience &&
-                  IsValidName && IsValidSecondName && isValidAge && IsValidEmail && IsValidPassword;
-            }
-
-            return Task.CompletedTask;
-        }
-
-        string emailPattern = @"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$";
+        readonly string emailPattern = @"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$";
 
         [RelayCommand]
         public Task ValidateEmail()
@@ -236,7 +261,7 @@ namespace Tonvo_Mobile.MVVM.ViewModels
                             IsValidEmail = false;
                             ShowEmailErrorMessage = true;
                             EnableButton = IsValidProfessionName && IsValidApplicantSalary && IsValidWorkExperience &&
-                              IsValidName && IsValidSecondName && isValidAge && IsValidEmail && IsValidPassword;
+                              IsValidName && IsValidSecondName && isValidBirthday && IsValidEmail && IsValidPassword;
                             return Task.CompletedTask;
                         }
                     }
@@ -246,7 +271,7 @@ namespace Tonvo_Mobile.MVVM.ViewModels
                 IsValidEmail = true;
                 ShowEmailErrorMessage = false;
                 EnableButton = IsValidProfessionName && IsValidApplicantSalary && IsValidWorkExperience &&
-                  IsValidName && IsValidSecondName && isValidAge && IsValidEmail && IsValidPassword;
+                  IsValidName && IsValidSecondName && isValidBirthday && IsValidEmail && IsValidPassword;
 
             }
             else
@@ -255,7 +280,7 @@ namespace Tonvo_Mobile.MVVM.ViewModels
                 IsValidEmail = false;
                 ShowEmailErrorMessage = true;
                 EnableButton = IsValidProfessionName && IsValidApplicantSalary && IsValidWorkExperience &&
-                  IsValidName && IsValidSecondName && isValidAge && IsValidEmail && IsValidPassword;
+                  IsValidName && IsValidSecondName && isValidBirthday && IsValidEmail && IsValidPassword;
 
             }
 
@@ -265,13 +290,13 @@ namespace Tonvo_Mobile.MVVM.ViewModels
         [RelayCommand]
         public Task ValidatePassword()
         {
-            if (!string.IsNullOrEmpty(Password) && Password.Length >= 8 && Password.Any(char.IsPunctuation) &&
+            if (!string.IsNullOrEmpty(Password) && Password.Length >= 8 && (Password.Any(char.IsPunctuation) || Password.Any(char.IsSymbol)) &&
                 Password.Any(char.IsDigit) && Password.Any(char.IsLetter) && Password.Any(char.IsUpper) && Password.Any(char.IsLower))
             {
                 IsValidPassword = true;
                 ShowPasswordErrorMessage = false;
                 EnableButton = IsValidProfessionName && IsValidApplicantSalary && IsValidWorkExperience &&
-                  IsValidName && IsValidSecondName && isValidAge && IsValidEmail && IsValidPassword;
+                  IsValidName && IsValidSecondName && isValidBirthday && IsValidEmail && IsValidPassword;
 
             }
             else
@@ -280,7 +305,7 @@ namespace Tonvo_Mobile.MVVM.ViewModels
                 IsValidPassword = false;
                 ShowPasswordErrorMessage = true;
                 EnableButton = IsValidProfessionName && IsValidApplicantSalary && IsValidWorkExperience &&
-                  IsValidName && IsValidSecondName && isValidAge && IsValidEmail && IsValidPassword;
+                  IsValidName && IsValidSecondName && isValidBirthday && IsValidEmail && IsValidPassword;
 
             }
 

@@ -41,7 +41,7 @@ namespace Tonvo_Mobile.MVVM.ViewModels
                         "Ваше резюме успешно создано", "Ok");
                     await Shell.Current.GoToAsync("..");
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     await Application.Current.MainPage.DisplayAlert("Регистрация провалена",
                         "Не удалось создать резюме", "Ok");
@@ -71,11 +71,10 @@ namespace Tonvo_Mobile.MVVM.ViewModels
             return Task.CompletedTask;
         }
 
-
-        string emailPattern = @"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$";
+        readonly string emailPattern = @"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$";
 
         [RelayCommand]
-        public async Task ValidateEmail()
+        public void ValidateEmail()
         {
             if (!string.IsNullOrEmpty(Email) && Regex.IsMatch(Email, emailPattern))
             {

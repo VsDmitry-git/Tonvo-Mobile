@@ -4,140 +4,153 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:behaviors="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    Shell.NavBarIsVisible="False"
+    Shell.TabBarIsVisible="False"
     Title="Создание резюме">
     <VerticalStackLayout>
 
-        <Entry
-            HorizontalOptions="FillAndExpand"
-            Keyboard="Text"
-            Placeholder="Введите название профессии"
-            Text="{Binding ProfessionName}">
-            <Entry.Behaviors>
-                <behaviors:UserStoppedTypingBehavior Command="{Binding ValidateProfessionNameCommand}" StoppedTypingTimeThreshold="500" />
-            </Entry.Behaviors>
-        </Entry>
-        <Label
-            FontSize="13"
-            IsVisible="{Binding ShowProfessionNameErrorMessage}"
-            Text="{Binding ProfessionNameErrorMessage}"
-            TextColor="Red" />
+        <ScrollView>
+            <VerticalStackLayout>
+                <Label Text="Создание резюме"
+               HorizontalOptions="Center"
+               FontSize="26"
+               Margin="8"/>
+                <Entry
+                    HorizontalOptions="FillAndExpand"
+                    Keyboard="Chat"
+                    Placeholder="Введите название профессии"
+                    Text="{Binding ProfessionName}">
+                    <Entry.Behaviors>
+                        <behaviors:UserStoppedTypingBehavior Command="{Binding ValidateProfessionNameCommand}" StoppedTypingTimeThreshold="500" />
+                    </Entry.Behaviors>
+                </Entry>
+                <Label
+                    FontSize="13"
+                    IsVisible="{Binding ShowProfessionNameErrorMessage}"
+                    Text="{Binding ProfessionNameErrorMessage}"
+                    TextColor="Red" />
         
-        <Entry
-            HorizontalOptions="FillAndExpand"
-            Keyboard="Text"
-            Placeholder="Введите желаемый доход"
-            Text="{Binding ApplicantSalary}">
-            <Entry.Behaviors>
-                <behaviors:UserStoppedTypingBehavior Command="{Binding ValidateApplicantSalaryCommand}" StoppedTypingTimeThreshold="500" />
-            </Entry.Behaviors>
-        </Entry>
-        <Label
-            FontSize="13"
-            IsVisible="{Binding ShowApplicantSalaryErrorMessage}"
-            Text="{Binding ApplicantSalaryErrorMessage}"
-            TextColor="Red" />
+                <Entry
+                    HorizontalOptions="FillAndExpand"
+                    Keyboard="Numeric"
+                    Placeholder="Введите желаемый доход"
+                    Text="{Binding ApplicantSalary}">
+                    <Entry.Behaviors>
+                        <behaviors:UserStoppedTypingBehavior Command="{Binding ValidateApplicantSalaryCommand}" StoppedTypingTimeThreshold="500" />
+                    </Entry.Behaviors>
+                </Entry>
+                <Label
+                    FontSize="13"
+                    IsVisible="{Binding ShowApplicantSalaryErrorMessage}"
+                    Text="{Binding ApplicantSalaryErrorMessage}"
+                    TextColor="Red" />
         
-        <Entry
-            HorizontalOptions="FillAndExpand"
-            Keyboard="Text"
-            Placeholder="Введите опыт работы"
-            Text="{Binding WorkExperience}">
-            <Entry.Behaviors>
-                <behaviors:UserStoppedTypingBehavior Command="{Binding ValidateWorkExperienceCommand}" StoppedTypingTimeThreshold="500" />
-            </Entry.Behaviors>
-        </Entry>
-        <Label
-            FontSize="13"
-            IsVisible="{Binding ShowWorkExperienceErrorMessage}"
-            Text="{Binding WorkExperienceErrorMessage}"
-            TextColor="Red" />
+                <Entry
+                    HorizontalOptions="FillAndExpand"
+                    Keyboard="Numeric"
+                    Placeholder="Введите опыт работы"
+                    Text="{Binding WorkExperience}">
+                    <Entry.Behaviors>
+                        <behaviors:UserStoppedTypingBehavior Command="{Binding ValidateWorkExperienceCommand}" StoppedTypingTimeThreshold="500" />
+                    </Entry.Behaviors>
+                </Entry>
+                <Label
+                    FontSize="13"
+                    IsVisible="{Binding ShowWorkExperienceErrorMessage}"
+                    Text="{Binding WorkExperienceErrorMessage}"
+                    TextColor="Red" />
 
-        <Entry
-            HorizontalOptions="FillAndExpand"
-            Keyboard="Text"
-            Placeholder="Введите имя"
-            Text="{Binding Name}">
-            <Entry.Behaviors>
-                <behaviors:UserStoppedTypingBehavior Command="{Binding ValidateNameCommand}" StoppedTypingTimeThreshold="500" />
-            </Entry.Behaviors>
-        </Entry>
-        <Label
-            FontSize="13"
-            IsVisible="{Binding ShowNameErrorMessage}"
-            Text="{Binding NameErrorMessage}"
-            TextColor="Red" />
+                <Entry
+                    HorizontalOptions="FillAndExpand"
+                    Keyboard="Chat"
+                    Placeholder="Введите имя"
+                    Text="{Binding Name}">
+                    <Entry.Behaviors>
+                        <behaviors:UserStoppedTypingBehavior Command="{Binding ValidateNameCommand}" StoppedTypingTimeThreshold="500" />
+                    </Entry.Behaviors>
+                </Entry>
+                <Label
+                    FontSize="13"
+                    IsVisible="{Binding ShowNameErrorMessage}"
+                    Text="{Binding NameErrorMessage}"
+                    TextColor="Red" />
 
-        <Entry
-            HorizontalOptions="FillAndExpand"
-            Keyboard="Text"
-            Placeholder="Введите фамилию"
-            Text="{Binding SecondName}">
-            <Entry.Behaviors>
-                <behaviors:UserStoppedTypingBehavior Command="{Binding ValidateSecondNameCommand}" StoppedTypingTimeThreshold="500" />
-            </Entry.Behaviors>
-        </Entry>
-        <Label
-            FontSize="13"
-            IsVisible="{Binding ShowSecondNameErrorMessage}"
-            Text="{Binding SecondNameErrorMessage}"
-            TextColor="Red" />
+                <Entry
+                    HorizontalOptions="FillAndExpand"
+                    Keyboard="Chat"
+                    Placeholder="Введите фамилию"
+                    Text="{Binding SecondName}">
+                    <Entry.Behaviors>
+                        <behaviors:UserStoppedTypingBehavior Command="{Binding ValidateSecondNameCommand}" StoppedTypingTimeThreshold="500" />
+                    </Entry.Behaviors>
+                </Entry>
+                <Label
+                    FontSize="13"
+                    IsVisible="{Binding ShowSecondNameErrorMessage}"
+                    Text="{Binding SecondNameErrorMessage}"
+                    TextColor="Red" />
 
-        <Entry
-            HorizontalOptions="FillAndExpand"
-            Keyboard="Text"
-            Placeholder="Введите полное кол-во лет"
-            Text="{Binding Age}">
-            <Entry.Behaviors>
-                <behaviors:UserStoppedTypingBehavior Command="{Binding ValidateAgeCommand}" StoppedTypingTimeThreshold="500" />
-            </Entry.Behaviors>
-        </Entry>
-        <Label
-            FontSize="13"
-            IsVisible="{Binding ShowAgeErrorMessage}"
-            Text="{Binding AgeErrorMessage}"
-            TextColor="Red" />
+                <DatePicker FontSize="13"
+                            Format="d"
+                            MinimumDate="{Binding DateStart}"
+                            MaximumDate="{Binding DateEnd}"
+                            Date="{Binding Birthday}"/>
+        
 
-        <Entry
-            HorizontalOptions="FillAndExpand"
-            Keyboard="Email"
-            Placeholder="Введите электронную почту"
-            Text="{Binding Email}">
-            <Entry.Behaviors>
-                <behaviors:UserStoppedTypingBehavior Command="{Binding ValidateEmailCommand}" StoppedTypingTimeThreshold="500" />
-            </Entry.Behaviors>
-        </Entry>
-        <Label
-            FontSize="13"
-            IsVisible="{Binding ShowEmailErrorMessage}"
-            Text="{Binding EmailErrorMessage}"
-            TextColor="Red" />
+                <Label Text="{Binding ErrorMessageBirthday}"
+                           HorizontalOptions="Start"
+                           FontSize="13"
+                           TextColor="#de3341"/>
+
+                <Entry
+                    HorizontalOptions="FillAndExpand"
+                    Keyboard="Email"
+                    Placeholder="Введите электронную почту"
+                    Text="{Binding Email}">
+                    <Entry.Behaviors>
+                        <behaviors:UserStoppedTypingBehavior Command="{Binding ValidateEmailCommand}" StoppedTypingTimeThreshold="500" />
+                    </Entry.Behaviors>
+                </Entry>
+                <Label
+                    FontSize="13"
+                    IsVisible="{Binding ShowEmailErrorMessage}"
+                    Text="{Binding EmailErrorMessage}"
+                    TextColor="Red" />
 
 
-        <Entry
-            HorizontalOptions="FillAndExpand"
-            IsPassword="True"
-            Keyboard="Default"
-            Placeholder="Введите пароль"
-            Text="{Binding Password}">
-            <Entry.Behaviors>
-                <behaviors:UserStoppedTypingBehavior Command="{Binding ValidatePasswordCommand}" StoppedTypingTimeThreshold="500" />
-            </Entry.Behaviors>
-        </Entry>
-        <Label
-            FontSize="13"
-            IsVisible="{Binding ShowPasswordErrorMessage}"
-            Text="{Binding PasswordErrorMessage}"
-            TextColor="Red" />
+                <Entry
+                    HorizontalOptions="FillAndExpand"
+                    IsPassword="True"
+                    Keyboard="Default"
+                    Placeholder="Введите пароль"
+                    Text="{Binding Password}">
+                    <Entry.Behaviors>
+                        <behaviors:UserStoppedTypingBehavior Command="{Binding ValidatePasswordCommand}" StoppedTypingTimeThreshold="500" />
+                    </Entry.Behaviors>
+                </Entry>
+                <Label
+                    FontSize="13"
+                    IsVisible="{Binding ShowPasswordErrorMessage}"
+                    Text="{Binding PasswordErrorMessage}"
+                    TextColor="Red" />
+
+                <Entry
+                    HorizontalOptions="FillAndExpand"
+                    IsPassword="True"
+                    Keyboard="Text"
+                    Placeholder="Обо мне (Необязательно)"
+                    Text="{Binding ApplicantDescription}"/>
+            </VerticalStackLayout>
+        </ScrollView>
         <Button
             Margin="0,30,0,0"
-            BackgroundColor="LightGray"
+            BackgroundColor="{StaticResource Primary}"
             Command="{Binding SignUpCommand}"
             CornerRadius="5"
             HorizontalOptions="Center"
             IsEnabled="{Binding EnableButton}"
-            Text="Sign up"
+            Text="Зарегистрироваться"
             TextColor="Black"
-            TextTransform="None"
-            WidthRequest="100" />
+            WidthRequest="190" />
     </VerticalStackLayout>
 </ContentPage>

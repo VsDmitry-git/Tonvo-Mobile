@@ -13,7 +13,7 @@ namespace Tonvo_Mobile.MVVM.Modelss
         public string SecondName { get; set; }
         public string FullName { get; set; }
         public string ApplicantDescription { get; set; }
-        public string Age { get; set; }
+        public string Birthday { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
         public ObservableCollection<int> Responds { get; set; } = new ObservableCollection<int>();

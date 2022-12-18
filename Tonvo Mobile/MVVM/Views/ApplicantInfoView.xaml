@@ -80,7 +80,7 @@
                     TextColor="{StaticResource Font}"
                     Margin="10,0,10,0"
                     LineBreakMode="WordWrap"
-                    Text="{Binding SelectedApplicant.ApplicantDescription, Mode=TwoWay, TargetNullValue=nullValue}"/>
+                    Text="{Binding SelectedApplicant.ApplicantDescription, Mode=TwoWay, TargetNullValue=Нет дополнительной информации}"/>
             </Grid>
         </ScrollView>
         <Button Text="Откликнуться" 

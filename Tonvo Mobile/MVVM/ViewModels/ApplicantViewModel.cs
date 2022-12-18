@@ -20,13 +20,11 @@ namespace Tonvo_Mobile.MVVM.ViewModels
         {
         }
 
-        private int mode;
-
-        public async Task Init()
+        public void Init()
         {
             try
             {
-                await ReadApplicant();
+                ReadApplicant();
                 GlobalViewModel.mode = 1;
             }
             catch (Exception)
@@ -58,7 +56,7 @@ namespace Tonvo_Mobile.MVVM.ViewModels
                 OnPropertyChanged();
             }
         }
-        async Task ReadApplicant()
+        void ReadApplicant()
         {
             Applicants = GlobalViewModel.Applicants;
         }
@@ -68,7 +66,7 @@ namespace Tonvo_Mobile.MVVM.ViewModels
             IsRefreshing = true;
             await Task.Delay(TimeSpan.FromSeconds(RefreshDuration));
             Applicants.Clear();
-            await ReadApplicant();
+            ReadApplicant();
             IsRefreshing = false;
         }
     }

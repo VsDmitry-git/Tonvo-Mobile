@@ -9,10 +9,10 @@ public partial class ApplicantList : ContentPage
         BindingContext = vm;
         InitializeComponent();
 	}
-    protected override async void OnAppearing()
+    protected override void OnAppearing()
     {
         base.OnAppearing();
 
-        await vm.Init();
+        vm.Init();
     }
 }

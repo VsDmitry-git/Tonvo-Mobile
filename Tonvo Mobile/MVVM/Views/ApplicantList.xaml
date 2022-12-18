@@ -31,19 +31,28 @@
                             SelectedItem="{Binding SelectedApplicant}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Grid Padding="10">
+                        <Grid Padding="10" ColumnDefinitions="auto,auto">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="auto"/>
                                 <RowDefinition Height="auto"/>
                                 <RowDefinition Height="auto"/>
                             </Grid.RowDefinitions>
 
-                            <Label Text="{Binding ProfessionName}"
+                            <Label Grid.ColumnSpan="2"
+                                   Text="{Binding ProfessionName}"
                                    TextColor="{StaticResource Font}"/>
                             <Label Grid.Row="1"
+                                   Text="Желаемый доход: "
+                                   TextColor="{StaticResource Font}"/>
+                            <Label Grid.Column="1"
+                                   Grid.Row="1"
                                    Text="{Binding ApplicantSalary}"
                                    TextColor="{StaticResource Font}"/>
                             <Label Grid.Row="2"
+                                   Text="Опыт работы: "
+                                   TextColor="{StaticResource Font}"/>
+                            <Label Grid.Column="1"
+                                   Grid.Row="2"
                                    Text="{Binding WorkExperience}"
                                    TextColor="{StaticResource Font}"
                                    VerticalOptions="End"/>
