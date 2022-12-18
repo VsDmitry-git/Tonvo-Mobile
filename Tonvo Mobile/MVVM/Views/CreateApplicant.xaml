@@ -1,16 +1,61 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
-    x:Class="ForgetMeNot.View.CreateAccount"
+    x:Class="Tonvo_Mobile.MVVM.Views.CreateApplicant"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:behaviors="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-    Title="CreateAccount">
+    Title="Создание резюме">
     <VerticalStackLayout>
 
         <Entry
             HorizontalOptions="FillAndExpand"
             Keyboard="Text"
-            Placeholder="Enter Name"
+            Placeholder="Введите название профессии"
+            Text="{Binding ProfessionName}">
+            <Entry.Behaviors>
+                <behaviors:UserStoppedTypingBehavior Command="{Binding ValidateProfessionNameCommand}" StoppedTypingTimeThreshold="500" />
+            </Entry.Behaviors>
+        </Entry>
+        <Label
+            FontSize="13"
+            IsVisible="{Binding ShowProfessionNameErrorMessage}"
+            Text="{Binding ProfessionNameErrorMessage}"
+            TextColor="Red" />
+        
+        <Entry
+            HorizontalOptions="FillAndExpand"
+            Keyboard="Text"
+            Placeholder="Введите желаемый доход"
+            Text="{Binding ApplicantSalary}">
+            <Entry.Behaviors>
+                <behaviors:UserStoppedTypingBehavior Command="{Binding ValidateApplicantSalaryCommand}" StoppedTypingTimeThreshold="500" />
+            </Entry.Behaviors>
+        </Entry>
+        <Label
+            FontSize="13"
+            IsVisible="{Binding ShowApplicantSalaryErrorMessage}"
+            Text="{Binding ApplicantSalaryErrorMessage}"
+            TextColor="Red" />
+        
+        <Entry
+            HorizontalOptions="FillAndExpand"
+            Keyboard="Text"
+            Placeholder="Введите опыт работы"
+            Text="{Binding WorkExperience}">
+            <Entry.Behaviors>
+                <behaviors:UserStoppedTypingBehavior Command="{Binding ValidateWorkExperienceCommand}" StoppedTypingTimeThreshold="500" />
+            </Entry.Behaviors>
+        </Entry>
+        <Label
+            FontSize="13"
+            IsVisible="{Binding ShowWorkExperienceErrorMessage}"
+            Text="{Binding WorkExperienceErrorMessage}"
+            TextColor="Red" />
+
+        <Entry
+            HorizontalOptions="FillAndExpand"
+            Keyboard="Text"
+            Placeholder="Введите имя"
             Text="{Binding Name}">
             <Entry.Behaviors>
                 <behaviors:UserStoppedTypingBehavior Command="{Binding ValidateNameCommand}" StoppedTypingTimeThreshold="500" />
@@ -24,8 +69,38 @@
 
         <Entry
             HorizontalOptions="FillAndExpand"
+            Keyboard="Text"
+            Placeholder="Введите фамилию"
+            Text="{Binding SecondName}">
+            <Entry.Behaviors>
+                <behaviors:UserStoppedTypingBehavior Command="{Binding ValidateSecondNameCommand}" StoppedTypingTimeThreshold="500" />
+            </Entry.Behaviors>
+        </Entry>
+        <Label
+            FontSize="13"
+            IsVisible="{Binding ShowSecondNameErrorMessage}"
+            Text="{Binding SecondNameErrorMessage}"
+            TextColor="Red" />
+
+        <Entry
+            HorizontalOptions="FillAndExpand"
+            Keyboard="Text"
+            Placeholder="Введите полное кол-во лет"
+            Text="{Binding Age}">
+            <Entry.Behaviors>
+                <behaviors:UserStoppedTypingBehavior Command="{Binding ValidateAgeCommand}" StoppedTypingTimeThreshold="500" />
+            </Entry.Behaviors>
+        </Entry>
+        <Label
+            FontSize="13"
+            IsVisible="{Binding ShowAgeErrorMessage}"
+            Text="{Binding AgeErrorMessage}"
+            TextColor="Red" />
+
+        <Entry
+            HorizontalOptions="FillAndExpand"
             Keyboard="Email"
-            Placeholder="Enter Email"
+            Placeholder="Введите электронную почту"
             Text="{Binding Email}">
             <Entry.Behaviors>
                 <behaviors:UserStoppedTypingBehavior Command="{Binding ValidateEmailCommand}" StoppedTypingTimeThreshold="500" />
@@ -42,7 +117,7 @@
             HorizontalOptions="FillAndExpand"
             IsPassword="True"
             Keyboard="Default"
-            Placeholder="Enter Password"
+            Placeholder="Введите пароль"
             Text="{Binding Password}">
             <Entry.Behaviors>
                 <behaviors:UserStoppedTypingBehavior Command="{Binding ValidatePasswordCommand}" StoppedTypingTimeThreshold="500" />

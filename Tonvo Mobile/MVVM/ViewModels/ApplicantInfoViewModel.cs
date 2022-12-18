@@ -45,7 +45,7 @@ namespace Tonvo_Mobile.MVVM.ViewModels
                 applicantSalary = value.ApplicantSalary;
                 workExperience = value.WorkExperience;
                 fullName = $"{value.SecondName} {value.Name}";
-                birthday = value.Birthday;
+                birthday = value.Age;
                 email = value.Email;
                 responds= value.Responds;
                 applicantDescription= value.ApplicantDescription;

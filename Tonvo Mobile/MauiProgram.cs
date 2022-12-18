@@ -30,8 +30,12 @@ public static class MauiProgram
 		services.AddTransient<ApplicantInfoViewModel>();
 
         services.AddTransient<LoginViewModel>();
+        services.AddTransient<CreateApplicantViewModel>();
+        services.AddTransient<CreateVacancyViewModel>();
 
         services.AddTransient<Login>();
+        services.AddTransient<CreateApplicant>();
+        services.AddTransient<CreateVacancy>();
 
         return builder.Build();
 	}

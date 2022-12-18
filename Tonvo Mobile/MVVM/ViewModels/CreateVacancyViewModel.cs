@@ -1,13 +1,12 @@
-﻿using System.Text.RegularExpressions;
-// using ForgetMeNot.Api.Dto;
-using ForgetMeNot.Services;
+﻿using System.Collections.ObjectModel;
+using System.Text.RegularExpressions;
+using Tonvo_Mobile.MVVM.Modelss;
 
-namespace ForgetMeNot.ViewModel
+namespace Tonvo_Mobile.MVVM.ViewModels
 {
     [ObservableObject]
     public partial class CreateVacancyViewModel
     {
-        private AccountService accountService;
 
         [ObservableProperty] private string name;
         [ObservableProperty] private string email;
@@ -23,9 +22,11 @@ namespace ForgetMeNot.ViewModel
         [ObservableProperty] private bool isValidEmail;
         [ObservableProperty] private bool isValidPassword;
 
-        public CreateVacancyViewModel(AccountService accountService)
+        [ObservableProperty] private ObservableCollection<Vacancy> vacancies;
+
+        public CreateVacancyViewModel()
         {
-            this.accountService = accountService;
+            Vacancies = GlobalViewModel.Vacancies;
         }
 
 
@@ -34,24 +35,16 @@ namespace ForgetMeNot.ViewModel
         {
             if (EnableButton)
             {
-                //AccountCreateRequest accountCreateRequest = new()
-                //{
-                //    Email = this.Email,
-                //    FullName = Name,
-                //    PlainPassword = Password
-                //};
-
                 try
                 {
-                    //await accountService.CreateAccount(accountCreateRequest);
-                    await Application.Current.MainPage.DisplayAlert("Sign up completed",
-                        "Your user has been created successfully", "Ok");
+                    await Application.Current.MainPage.DisplayAlert("Регистрация завершена",
+                        "Ваше резюме успешно создано", "Ok");
                     await Shell.Current.GoToAsync("..");
                 }
                 catch (Exception e)
                 {
-                    await Application.Current.MainPage.DisplayAlert("Sign up failed",
-                        "We were not able to create an account with that user name", "Ok");
+                    await Application.Current.MainPage.DisplayAlert("Регистрация провалена",
+                        "Не удалось создать резюме", "Ok");
                 }
             }
 
@@ -69,7 +62,7 @@ namespace ForgetMeNot.ViewModel
             }
             else
             {
-                NameErrorMessage = "*Please enter a name with at least two characters";
+                NameErrorMessage = "*Пожалуйста, введите имя, состоящее не менее чем из двух символов";
                 IsValidName = false;
                 ShowNameErrorMessage = true;
                 EnableButton = IsValidName && IsValidEmail && IsValidPassword;
@@ -86,10 +79,25 @@ namespace ForgetMeNot.ViewModel
         {
             if (!string.IsNullOrEmpty(Email) && Regex.IsMatch(Email, emailPattern))
             {
+                if (Vacancies != null)
+                {
+                    foreach (Vacancy item in Vacancies)
+                    {
+                        if (Email.Equals(item.Email))
+                        {
+                            EmailErrorMessage = "*Эта почта уже занята. Попробуйте другую";
+                            IsValidEmail = false;
+                            ShowEmailErrorMessage = true;
+                            EnableButton = IsValidName && IsValidEmail && IsValidPassword;
+                            return;
+                        }
+                    }
+                }
+                else return;
+
                 IsValidEmail = true;
                 ShowEmailErrorMessage = false;
                 EnableButton = IsValidName && IsValidEmail && IsValidPassword;
-
             }
             else
             {
@@ -105,7 +113,8 @@ namespace ForgetMeNot.ViewModel
         [RelayCommand]
         public Task ValidatePassword()
         {
-            if (!string.IsNullOrEmpty(Password) && Password.Length >= 6)
+            if (!string.IsNullOrEmpty(Password) && Password.Length >= 8 && Password.Any(char.IsPunctuation) &&
+                Password.Any(char.IsDigit) && Password.Any(char.IsLetter) && Password.Any(char.IsUpper) && Password.Any(char.IsLower))
             {
                 IsValidPassword = true;
                 ShowPasswordErrorMessage = false;
@@ -114,7 +123,7 @@ namespace ForgetMeNot.ViewModel
             }
             else
             {
-                PasswordErrorMessage = "*Invalid password. Must be at least 6 characters";
+                PasswordErrorMessage = "*Пароль должен содержать буквы верхнего и нижнего регистра, цифры, спецсимволы и длиной не менее 8 символов";
                 IsValidPassword = false;
                 ShowPasswordErrorMessage = true;
                 EnableButton = IsValidName && IsValidEmail && IsValidPassword;

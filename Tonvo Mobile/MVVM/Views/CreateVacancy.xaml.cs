@@ -1,9 +1,9 @@
-namespace ForgetMeNot.View;
+namespace Tonvo_Mobile.MVVM.Views;
 
-public partial class CreateAccount : ContentPage
+public partial class CreateVacancy : ContentPage
 {
-    private CreateAccountViewModel vm;
-	public CreateAccount(CreateAccountViewModel vm)
+    private CreateVacancyViewModel vm;
+	public CreateVacancy(CreateVacancyViewModel vm)
     {
         this.vm = vm;
         BindingContext = vm;

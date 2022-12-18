@@ -55,7 +55,7 @@ namespace Tonvo.Services
 
             _pathToSaveVacancy = Path.Combine(FileSystem.Current.AppDataDirectory, _vacancyDSNameFile);
 
-            await ReadVacancyJson();
+            Vacancies = ReadVacancyJson();
         }
 
         // команда добавления нового объекта
@@ -66,16 +66,16 @@ namespace Tonvo.Services
                 _currentPath = _pathToSaveApplicant;
                 Applicants = ReadApplicantsJson();
                 Applicants.Insert(0, acc);
-                await SaveDataList(Applicants);
+                //SaveDataList(Applicants);
             }
             catch (Exception) { }
         }
         public async static Task AddVacancy(Vacancy acc)
         {
             _currentPath = _pathToSaveVacancy;
-            await ReadVacancyJson();
+            Vacancies = ReadVacancyJson();
             Vacancies.Insert(0, acc);
-            await SaveDataList(Vacancies);
+            SaveDataList(Vacancies);
         }
         public async static void AddCompany(Company acc)
         {
@@ -84,7 +84,7 @@ namespace Tonvo.Services
                 _currentPath = _pathToSaveCompany;
                 Companies = ReadCompanyJson();
                 Companies.Insert(0, acc);
-                await SaveDataList(Companies);
+                //SaveDataList(Companies);
             }
             catch (Exception) { }
         }
@@ -107,33 +107,40 @@ namespace Tonvo.Services
                 File.WriteAllText(_pathToSaveApplicant, "[]");
             return Applicants = JsonConvert.DeserializeObject<ObservableCollection<Applicant>>(File.ReadAllText(_pathToSaveApplicant));
         }
-        public static async Task ReadVacancyJson()
+        public static ObservableCollection<Vacancy> ReadVacancyJson()
         {
             _pathToSaveVacancy = Path.Combine(FileSystem.Current.AppDataDirectory, _vacancyDSNameFile);
             _currentPath= _pathToSaveVacancy;
+            //File.Delete(_pathToSaveVacancy);
             if (!File.Exists(_currentPath))
             {
-                using var stream = await FileSystem.OpenAppPackageFileAsync(_vacancyDSNameFile);
-                using var reader = new StreamReader(stream);
-
-                var contents = await reader.ReadToEndAsync();
-
-                Vacancies = JsonConvert.DeserializeObject<ObservableCollection<Vacancy>>(contents);
-
-                await SaveDataList(Vacancies);
+                string targetFile = _currentPath;
+                ObservableCollection<Vacancy> vacancies = new ObservableCollection<Vacancy>();
+                File.WriteAllText(targetFile, JsonConvert.SerializeObject(vacancies));
+                return vacancies;
             }
             else
             {
-                using FileStream outputSteram = File.OpenRead(_currentPath);
-                using var sreader = new StreamReader(outputSteram);
-
-                var contents = await sreader.ReadToEndAsync();
-
-                Vacancies = JsonConvert.DeserializeObject<ObservableCollection<Vacancy>>(contents);
-                Vacancies = new ObservableCollection<Vacancy>();
-                Vacancies.Add(new Vacancy { CompanyName = "hbj", VacancyName = "kjn", VacancySalary = "hjb"});
+                string targetFile = _currentPath;
+                var Vacancies = JsonConvert.DeserializeObject<ObservableCollection<Vacancy>>(File.ReadAllText(targetFile));
+                Vacancies.Add(new Vacancy { CompanyName = "hbj", VacancyName = "kjn", VacancySalary = "hjb" , AddressCompany="hjb", Email="jhj", Password="hb", RequiredExperience="jhbj"});
+                SaveDataList(Vacancies);
+                return Vacancies;
             }
         }
+
+        // Сохранение данных
+        public static void SaveDataList(ObservableCollection<Vacancy> accs)
+        {
+            File.WriteAllText(_currentPath, JsonConvert.SerializeObject(accs));
+            //using FileStream outputSteram = File.OpenWrite(_currentPath);
+            //using var streamWriter = new StreamWriter(outputSteram);
+            
+            //await streamWriter.WriteAsync(JsonConvert.SerializeObject(accs, Formatting.Indented));
+
+            //await File.WriteAllTextAsync(_currentPath, JsonConvert.SerializeObject(accs, Formatting.Indented));
+        }
+
         public static ObservableCollection<Vacancy> GetVacancy()
         {
             return Vacancies;
@@ -155,17 +162,6 @@ namespace Tonvo.Services
             return convertedList;
         }
 
-        // Сохранение данных
-        public async static Task SaveDataList<T>(T accs)
-        {
-            using FileStream outputSteram = File.OpenWrite(_currentPath);
-            using var streamWriter = new StreamWriter(outputSteram);
-
-            await streamWriter.WriteAsync(JsonConvert.SerializeObject(accs, Formatting.Indented));
-
-            //await File.WriteAllTextAsync(_currentPath, JsonConvert.SerializeObject(accs, Formatting.Indented));
-        }
-
         // Изменение объекта
         public async static void ApplicantAccountChange(Applicant replace)
         {
@@ -180,7 +176,7 @@ namespace Tonvo.Services
                     {
                         i = readed.IndexOf(item);
                         readed[i] = replace;
-                        await SaveDataList(readed);
+                        //SaveDataList(readed);
                         return;
                     }
                 }
@@ -199,7 +195,7 @@ namespace Tonvo.Services
                     {
                         i = readed.IndexOf(item);
                         readed[i] = replace;
-                        await SaveDataList(readed);
+                        SaveDataList(readed);
                         return;
                     }
                 }

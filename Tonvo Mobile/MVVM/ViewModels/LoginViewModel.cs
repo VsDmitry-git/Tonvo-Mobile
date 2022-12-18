@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tonvo.Services;
 using Tonvo_Mobile.MVVM.Modelss;
 
 namespace Tonvo_Mobile.MVVM.ViewModels;
@@ -16,9 +17,8 @@ public partial class LoginViewModel
 
     public LoginViewModel()
     {
-        GlobalViewModel.Vacancies = new();
-        GlobalViewModel.Vacancies.Add(new Vacancy { VacancyName = "Test1", CompanyName = "Test2", Password = "gvjbj", VacancySalary = "Test3" });
-        GlobalViewModel.Vacancies.Add(new Vacancy { VacancyName = "Test4", CompanyName = "Test5", Password = "123", VacancySalary = "Test6" , Email = "123"});
+        GlobalViewModel.Vacancies = DataStorage.ReadVacancyJson();
+        GlobalViewModel.Vacancies = DataStorage.ReadVacancyJson();
 
         GlobalViewModel.Applicants= new();
         GlobalViewModel.Applicants.Add(new Applicant { ApplicantSalary = "ffdf", ProfessionName = "kkl", WorkExperience = "jl", Name = "jhknj", SecondName = "jhb" });
@@ -39,7 +39,7 @@ public partial class LoginViewModel
                 {
                     GlobalViewModel.mode = 0;
                     Application.Current.MainPage = new AppShell();
-                    await Shell.Current.GoToAsync("RootView");
+                    await Shell.Current.GoToAsync("..");
                     return;
                 }
             }

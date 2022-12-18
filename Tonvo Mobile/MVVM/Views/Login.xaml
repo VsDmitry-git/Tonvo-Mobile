@@ -9,8 +9,8 @@
              Shell.PresentationMode="ModalAnimated">
     <VerticalStackLayout>
         <Grid
-            ColumnDefinitions="*,*,*"
-            RowDefinitions="Auto,Auto,Auto,Auto"
+            ColumnDefinitions="*,*"
+            RowDefinitions="Auto,Auto,Auto,Auto,Auto"
             RowSpacing="10">
             <Label
                 Grid.Row="0"
@@ -41,31 +41,30 @@
                 WidthRequest="150" />
             <Button
                 Grid.Row="2"
-                Grid.Column="0"
-                Margin="0,20,0,0"
+                Grid.ColumnSpan="2"
+                Margin="20,20,20,0"
                 BackgroundColor="LightGray"
                 Command="{Binding DoLoginCommand}"
                 Text="Войти"
                 TextColor="Black"
-                WidthRequest="125" />
+                FontSize="Caption" />
             <Button
-                Grid.Row="2"
-                Grid.Column="1"
-                Margin="0,20,0,0"
+                Grid.Row="3"
+                Margin="20,20,10,0"
                 BackgroundColor="LightGray"
                 Command="{Binding DoCreateApplicantCommand}"
+                FontSize="Caption"
                 Text="Создать резюме"
-                TextColor="Black"
-                WidthRequest="125" />
+                TextColor="Black"/>
             <Button
-                Grid.Row="2"
-                Grid.Column="2"
-                Margin="0,20,0,0"
+                Grid.Row="3"
+                Grid.Column="1"
+                Margin="10,20,20,0"
                 BackgroundColor="LightGray"
                 Command="{Binding DoCreateVacancyCommand}"
                 Text="Создать вакансию"
-                TextColor="Black"
-                WidthRequest="125" />
+                FontSize="Caption"
+                TextColor="Black"/>
         </Grid>
     </VerticalStackLayout>
 </ContentPage>
