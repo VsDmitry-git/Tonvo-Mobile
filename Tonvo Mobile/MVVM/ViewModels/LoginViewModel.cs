@@ -17,12 +17,9 @@ public partial class LoginViewModel
 
     public LoginViewModel()
     {
-        GlobalViewModel.Vacancies = DataStorage.ReadVacancyJson();
-        GlobalViewModel.Vacancies = DataStorage.ReadVacancyJson();
-
-        GlobalViewModel.Applicants= new();
-        GlobalViewModel.Applicants.Add(new Applicant { ApplicantSalary = "ffdf", ProfessionName = "kkl", WorkExperience = "jl", Name = "jhknj", SecondName = "jhb" });
-        GlobalViewModel.Applicants.Add(new Applicant { ApplicantSalary = "sffweefwdf", ProfessionName = "rger", WorkExperience = "ergf", Name = "bjoijjb", SecondName = "jbbbkkjhbbkjnkhhjkj" });
+        DataStorage.Init();
+        GlobalViewModel.Applicants = DataStorage.GetApplicants();
+        GlobalViewModel.Vacancies= DataStorage.GetVacancies();
     }
 
 
