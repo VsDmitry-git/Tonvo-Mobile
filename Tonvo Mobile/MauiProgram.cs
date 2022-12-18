@@ -18,17 +18,21 @@ public static class MauiProgram
 
         var services = builder.Services;
 
-		services.AddSingleton<RootViewModel>();
-		services.AddSingleton<RootView>();
-		services.AddSingleton<UserInfoViewModel>();
-		services.AddSingleton<UserInfoView>();
-		services.AddSingleton<AccountViewModel>();
-		services.AddSingleton<AccountView>();
-		services.AddSingleton<ApplicantList>();
-		services.AddSingleton<ApplicantViewModel>();
-		services.AddSingleton<ApplicantInfoView>();
-		services.AddSingleton<ApplicantInfoViewModel>();
+		services.AddTransient<RootViewModel>();
+		services.AddTransient<RootView>();
+		services.AddTransient<UserInfoViewModel>();
+		services.AddTransient<UserInfoView>();
+		services.AddTransient<AccountViewModel>();
+		services.AddTransient<AccountView>();
+		services.AddTransient<ApplicantList>();
+		services.AddTransient<ApplicantViewModel>();
+		services.AddTransient<ApplicantInfoView>();
+		services.AddTransient<ApplicantInfoViewModel>();
 
-		return builder.Build();
+        services.AddTransient<LoginViewModel>();
+
+        services.AddTransient<Login>();
+
+        return builder.Build();
 	}
 }

@@ -13,5 +13,6 @@ public partial class AppShell : Shell
         Routing.RegisterRoute("UserInfoView", typeof(UserInfoView));
         Routing.RegisterRoute("AccountView", typeof(AccountView));
         Routing.RegisterRoute("ApplicantInfoView", typeof(ApplicantInfoView));
+        Routing.RegisterRoute("login", typeof(Login));
     }
 }

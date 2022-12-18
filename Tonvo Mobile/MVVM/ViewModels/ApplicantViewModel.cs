@@ -60,9 +60,7 @@ namespace Tonvo_Mobile.MVVM.ViewModels
         }
         async Task ReadApplicant()
         {
-            Applicants = new ObservableCollection<Applicant>();
-            Applicants.Add(new Applicant { ApplicantSalary = "ffdf", ProfessionName = "kkl", WorkExperience = "jl", Name = "jhknj", SecondName="jhb" });
-            Applicants.Add(new Applicant { ApplicantSalary = "sffweefwdf", ProfessionName = "rger", WorkExperience = "ergf", Name="bjoijjb", SecondName="jbbbkkjhbbkjnkhhjkj" });
+            Applicants = GlobalViewModel.Applicants;
         }
 
         async Task RefreshDataAsync()

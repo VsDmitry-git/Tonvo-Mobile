@@ -64,9 +64,7 @@ namespace Tonvo_Mobile.MVVM.ViewModels
         }
         async Task ReadVacancy()
         {
-            Vacancies = new ObservableCollection<Vacancy>();
-            Vacancies.Add(new Vacancy{ VacancyName = "Test1", CompanyName="Test2", Password="gvjbj", VacancySalary="Test3"});
-            Vacancies.Add(new Vacancy{ VacancyName = "Test1", CompanyName = "Test2", Password = "gvjbj", VacancySalary = "Test3"});
+            Vacancies = GlobalViewModel.Vacancies;
         }
 
         async Task RefreshDataAsync()

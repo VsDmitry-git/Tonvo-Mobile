@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Tonvo_Mobile.MVVM.ViewModels
 {
-    internal class AccountViewModel
+    public partial class AccountViewModel
     {
         public AccountViewModel()
         {
