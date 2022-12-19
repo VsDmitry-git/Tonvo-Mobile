@@ -8,6 +8,8 @@ public partial class AppShell : Shell
 	{
 		InitializeComponent();
 
+        BindingContext = new AppShellVieModel();
+
         Routing.RegisterRoute("RootView", typeof(RootView));
         Routing.RegisterRoute("ApplicantList", typeof(ApplicantList));
         Routing.RegisterRoute("UserInfoView", typeof(UserInfoView));

@@ -7,7 +7,7 @@
     Shell.NavBarIsVisible="False"
     Shell.TabBarIsVisible="False"
     Title="Создание резюме">
-    <VerticalStackLayout>
+    <Grid RowDefinitions="*,auto">
 
         <ScrollView>
             <VerticalStackLayout>
@@ -19,7 +19,8 @@
                     HorizontalOptions="FillAndExpand"
                     Keyboard="Chat"
                     Placeholder="Введите название профессии"
-                    Text="{Binding ProfessionName}">
+                    Text="{Binding ProfessionName}"
+                    ClearButtonVisibility="WhileEditing">
                     <Entry.Behaviors>
                         <behaviors:UserStoppedTypingBehavior Command="{Binding ValidateProfessionNameCommand}" StoppedTypingTimeThreshold="500" />
                     </Entry.Behaviors>
@@ -33,8 +34,9 @@
                 <Entry
                     HorizontalOptions="FillAndExpand"
                     Keyboard="Numeric"
-                    Placeholder="Введите желаемый доход"
-                    Text="{Binding ApplicantSalary}">
+                    Placeholder="Введите желаемый доход (руб.)"
+                    Text="{Binding ApplicantSalary}"
+                    ClearButtonVisibility="WhileEditing">
                     <Entry.Behaviors>
                         <behaviors:UserStoppedTypingBehavior Command="{Binding ValidateApplicantSalaryCommand}" StoppedTypingTimeThreshold="500" />
                     </Entry.Behaviors>
@@ -49,7 +51,8 @@
                     HorizontalOptions="FillAndExpand"
                     Keyboard="Numeric"
                     Placeholder="Введите опыт работы"
-                    Text="{Binding WorkExperience}">
+                    Text="{Binding WorkExperience}"
+                    ClearButtonVisibility="WhileEditing">
                     <Entry.Behaviors>
                         <behaviors:UserStoppedTypingBehavior Command="{Binding ValidateWorkExperienceCommand}" StoppedTypingTimeThreshold="500" />
                     </Entry.Behaviors>
@@ -64,7 +67,8 @@
                     HorizontalOptions="FillAndExpand"
                     Keyboard="Chat"
                     Placeholder="Введите имя"
-                    Text="{Binding Name}">
+                    Text="{Binding Name}"
+                    ClearButtonVisibility="WhileEditing">
                     <Entry.Behaviors>
                         <behaviors:UserStoppedTypingBehavior Command="{Binding ValidateNameCommand}" StoppedTypingTimeThreshold="500" />
                     </Entry.Behaviors>
@@ -79,7 +83,8 @@
                     HorizontalOptions="FillAndExpand"
                     Keyboard="Chat"
                     Placeholder="Введите фамилию"
-                    Text="{Binding SecondName}">
+                    Text="{Binding SecondName}"
+                    ClearButtonVisibility="WhileEditing">
                     <Entry.Behaviors>
                         <behaviors:UserStoppedTypingBehavior Command="{Binding ValidateSecondNameCommand}" StoppedTypingTimeThreshold="500" />
                     </Entry.Behaviors>
@@ -94,7 +99,8 @@
                             Format="d"
                             MinimumDate="{Binding DateStart}"
                             MaximumDate="{Binding DateEnd}"
-                            Date="{Binding Birthday}"/>
+                            Date="{Binding Birthday}"
+                            />
         
 
                 <Label Text="{Binding ErrorMessageBirthday}"
@@ -106,7 +112,8 @@
                     HorizontalOptions="FillAndExpand"
                     Keyboard="Email"
                     Placeholder="Введите электронную почту"
-                    Text="{Binding Email}">
+                    Text="{Binding Email}"
+                    ClearButtonVisibility="WhileEditing">
                     <Entry.Behaviors>
                         <behaviors:UserStoppedTypingBehavior Command="{Binding ValidateEmailCommand}" StoppedTypingTimeThreshold="500" />
                     </Entry.Behaviors>
@@ -123,6 +130,7 @@
                     IsPassword="True"
                     Keyboard="Default"
                     Placeholder="Введите пароль"
+                    ClearButtonVisibility="WhileEditing"
                     Text="{Binding Password}">
                     <Entry.Behaviors>
                         <behaviors:UserStoppedTypingBehavior Command="{Binding ValidatePasswordCommand}" StoppedTypingTimeThreshold="500" />
@@ -134,23 +142,34 @@
                     Text="{Binding PasswordErrorMessage}"
                     TextColor="Red" />
 
-                <Entry
+                <Editor
                     HorizontalOptions="FillAndExpand"
-                    IsPassword="True"
                     Keyboard="Text"
                     Placeholder="Обо мне (Необязательно)"
-                    Text="{Binding ApplicantDescription}"/>
+                    Text="{Binding ApplicantDescription}"
+                    AutoSize="TextChanges"
+                    />
             </VerticalStackLayout>
         </ScrollView>
-        <Button
-            Margin="0,30,0,0"
-            BackgroundColor="{StaticResource Primary}"
-            Command="{Binding SignUpCommand}"
-            CornerRadius="5"
-            HorizontalOptions="Center"
-            IsEnabled="{Binding EnableButton}"
-            Text="Зарегистрироваться"
-            TextColor="Black"
-            WidthRequest="190" />
-    </VerticalStackLayout>
+        <VerticalStackLayout Grid.Row="1" >
+        
+            <Button Margin="0,30,0,0"
+                BackgroundColor="{StaticResource Primary}"
+                Command="{Binding SignUpCommand}"
+                CornerRadius="8"
+                HorizontalOptions="Center"
+                IsEnabled="{Binding EnableButton}"
+                Text="Зарегистрироваться"
+                TextColor="Black"
+                WidthRequest="190" />
+
+            <!--<Button Margin="0,15,0,0"
+                BackgroundColor="Transparent"
+                TextColor="{StaticResource Cyan200Accent}"
+                Command="{Binding BackSignInCommand}"
+                CornerRadius="5"
+                HorizontalOptions="Center"
+                Text="У меня есть аккаунт"/>-->
+        </VerticalStackLayout>
+    </Grid>
 </ContentPage>

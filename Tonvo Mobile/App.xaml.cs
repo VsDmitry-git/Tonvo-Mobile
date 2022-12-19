@@ -1,4 +1,5 @@
 ﻿using Tonvo.Services;
+using Tonvo_Mobile.MVVM.ViewModels;
 
 namespace Tonvo_Mobile;
 
@@ -8,7 +9,7 @@ public partial class App : Application
 	{
 		InitializeComponent();
 
-        // MainPage = new AppShell();
+        //MainPage = new AppShell();
 
         MainPage = new Login(loginViewModel);
     }

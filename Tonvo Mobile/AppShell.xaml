@@ -7,8 +7,6 @@
     xmlns:local="clr-namespace:Tonvo_Mobile"
     Shell.FlyoutBehavior="Disabled">
 
-    
-    
     <TabBar>
         <TabBar.Style>
             <Style TargetType="Tab">

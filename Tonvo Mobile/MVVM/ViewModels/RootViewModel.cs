@@ -22,7 +22,6 @@ namespace Tonvo_Mobile.MVVM.ViewModels
             try
             {
                 ReadVacancy();
-                GlobalViewModel.mode = 0;
             }
             catch (Exception)
             {

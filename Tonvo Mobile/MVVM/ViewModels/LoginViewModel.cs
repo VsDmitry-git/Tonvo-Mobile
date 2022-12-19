@@ -34,7 +34,7 @@ public partial class LoginViewModel
             {
                 if(item.Email == Email && item.Password == password)
                 {
-                    GlobalViewModel.mode = 0;
+                    GlobalViewModel.mode = true;
                     Application.Current.MainPage = new AppShell();
                     await Shell.Current.GoToAsync("..");
                     return;
@@ -44,7 +44,7 @@ public partial class LoginViewModel
             {
                 if (item.Email == Email && item.Password == password)
                 {
-                    GlobalViewModel.mode = 1;
+                    GlobalViewModel.mode = false;
                     Application.Current.MainPage = new AppShell();
                     await Shell.Current.GoToAsync("..");
                     return;

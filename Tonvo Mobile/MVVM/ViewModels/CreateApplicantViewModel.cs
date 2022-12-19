@@ -8,38 +8,18 @@ namespace Tonvo_Mobile.MVVM.ViewModels
     [ObservableObject]
     public partial class CreateApplicantViewModel
     {
-        [ObservableProperty]
-        private DateTime dateStart = DateTime.Now.AddYears(-100);
-        [ObservableProperty]
-        private DateTime dateEnd = DateTime.Now.AddYears(-14);
+        [ObservableProperty] private DateTime dateStart = DateTime.Now.AddYears(-100);
+        [ObservableProperty] private DateTime dateEnd = DateTime.Now.AddYears(-14);
 
-        [ObservableProperty]
-        [NotifyCanExecuteChangedFor(nameof(SignUpCommand))]
-        private string professionName;
-        [ObservableProperty]
-        [NotifyCanExecuteChangedFor(nameof(SignUpCommand))]
-        private string applicantSalary;
-        [ObservableProperty]
-        [NotifyCanExecuteChangedFor(nameof(SignUpCommand))] 
-        private string workExperience;
-        [ObservableProperty] 
-        [NotifyCanExecuteChangedFor(nameof(SignUpCommand))] 
-        private string name;
-        [ObservableProperty] 
-        [NotifyCanExecuteChangedFor(nameof(SignUpCommand))] 
-        private string secondName;
-        [ObservableProperty] 
-        [NotifyCanExecuteChangedFor(nameof(SignUpCommand))] 
-        private string birthday;  
-        [ObservableProperty] 
-        [NotifyCanExecuteChangedFor(nameof(SignUpCommand))] 
-        private string email;
-        [ObservableProperty] 
-        [NotifyCanExecuteChangedFor(nameof(SignUpCommand))] 
-        private string password;
-        [ObservableProperty]
-        [NotifyCanExecuteChangedFor(nameof(SignUpCommand))]
-        private string applicantDescription;
+        [ObservableProperty] private string professionName;
+        [ObservableProperty] private string applicantSalary;
+        [ObservableProperty] private string workExperience;
+        [ObservableProperty] private string name;
+        [ObservableProperty] private string secondName;
+        [ObservableProperty] private string birthday;  
+        [ObservableProperty] private string email;
+        [ObservableProperty] private string password;
+        [ObservableProperty] private string applicantDescription;
 
         [ObservableProperty] private string professionNameErrorMessage;
         [ObservableProperty] private string applicantSalaryErrorMessage;
@@ -85,18 +65,21 @@ namespace Tonvo_Mobile.MVVM.ViewModels
             {
                 try
                 {
-                    DataStorage.AddApplicant(new Applicant 
-                    { 
-                        ProfessionName=ProfessionName,
-                        ApplicantSalary=ApplicantSalary,
-                        WorkExperience=WorkExperience,
-                        Name=Name,
-                        SecondName=SecondName,
+                    DataStorage.AddApplicant(new Applicant
+                    {
+                        Id = Applicants.Count != 0 ? Applicants[0].Id + 1 : 0,
+                        ProfessionName = ProfessionName,
+                        ApplicantSalary = ApplicantSalary,
+                        WorkExperience = WorkExperience,
+                        Name = Name,
+                        SecondName = SecondName,
                         Birthday = Birthday.Remove(Birthday.IndexOf(' ')),
-                        Email=Email,
-                        Password=Password,
-                        ApplicantDescription=ApplicantDescription
+                        Email = Email,
+                        Password = Password,
+                        ApplicantDescription = ApplicantDescription
                     });
+
+                    GlobalViewModel.mode = true;
                     
                     await Application.Current.MainPage.DisplayAlert("Регистрация завершена", "Ваше резюме успешно создано", "Ok");
                     await Shell.Current.GoToAsync("..");

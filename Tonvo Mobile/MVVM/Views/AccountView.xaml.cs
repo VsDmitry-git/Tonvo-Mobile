@@ -9,4 +9,10 @@ public partial class AccountView : ContentPage
 		BindingContext= vm;
 		InitializeComponent();
 	}
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+
+        vm.Init();
+    }
 }
